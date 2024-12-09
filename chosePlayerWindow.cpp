@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
+
+#include "DropBox.h"
 #include "newPlayerWindowUnit.h"
 
 #define CHOOSE_PLAYER_WINDOW_WIDTH 800
@@ -42,6 +44,13 @@ void choosePlayer () {
     newPlayerButton.setPosition((currWindowWidth - newPlayerButton.getSize().x) / 2 - CHOOSE_PLAYER_SHIFT_BUTTON * 3.1f, currWindowHeight / 2 + CHOOSE_PLAYER_SHIFT_BUTTON * 1.5);
     newPlayerButton.setTexture(&newPlayerButtonTexture, true);
 
+    //Initialize dropBox
+    sf::Font font;
+    if (!font.loadFromFile("fonts\\ofont.ru_DS Crystal.ttf")) {
+        std::cerr << "Failed to load font" << std::endl;
+    }
+    std::vector<std::string> names = {"Num1", "Num2", "Num3", "Num4", "Num5"};
+    DropBox dropBox(font, names, 100, 100, 200, 40);
 
     while (chooseWindow.isOpen()) {
         sf::Event event;
@@ -60,10 +69,12 @@ void choosePlayer () {
                     newPlayerWin();
                 }
             }
+            dropBox.handleEvent(event);
         }
         chooseWindow.clear();
         chooseWindow.draw(backgroundChoosePlayerSprite);
         chooseWindow.draw(newPlayerButton);
+        dropBox.draw(chooseWindow);
         chooseWindow.display();
     }
 
