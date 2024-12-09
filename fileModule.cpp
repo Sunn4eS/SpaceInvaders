@@ -5,9 +5,9 @@
 #include "fileModule.h"
 #include <string>
 #include <fstream>
+PlayerLinkedList players;
 
 PlayerLinkedList::PlayerLinkedList() : head(nullptr) {}
-
 PlayerLinkedList::~PlayerLinkedList() {
     while (head != nullptr) {
         player_t *tmp = head;
@@ -17,7 +17,7 @@ PlayerLinkedList::~PlayerLinkedList() {
 }
 
 void PlayerLinkedList::add(std::string &name, int score) {
-    player_t *newPlayer = new player_t{{name, score}, nullptr};
+    player_t *newPlayer = new player_t{{name, score},nullptr };
     if (head == nullptr) {
         head = newPlayer;
     } else {
@@ -30,7 +30,7 @@ void PlayerLinkedList::add(std::string &name, int score) {
 }
 
 void PlayerLinkedList::remove(const std::string &name) {
-    if (head == nullptr) {
+    if (head == NULL) {
         return;
     }
     if (head->data.name == name) {
@@ -51,7 +51,7 @@ void PlayerLinkedList::remove(const std::string &name) {
 }
 
 void PlayerLinkedList::saveToFile() {
-    std::ofstream file("playersData.txt", std::ios::binary);
+    std::ofstream file("playersData.bin", std::ios::binary);
     player_t *temp = head;
     while (temp) {
         size_t nameSize = temp->data.name.size();
@@ -64,7 +64,7 @@ void PlayerLinkedList::saveToFile() {
 }
 
 void PlayerLinkedList::loadFromFile() {
-    std::ifstream file("playersData.txt", std::ios::binary);
+    std::ifstream file("playersData.bin", std::ios::binary);
     while (file) {
         size_t nameSize;
         file.read(reinterpret_cast<char*>(&nameSize), sizeof(nameSize));
@@ -79,3 +79,5 @@ void PlayerLinkedList::loadFromFile() {
     }
     file.close();
 }
+
+

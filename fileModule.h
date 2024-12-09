@@ -6,6 +6,8 @@
 #define FILEMODULE_H
 
 #include <string>
+
+
 class PlayerLinkedList {
 public:
 
@@ -25,8 +27,9 @@ public:
     void remove(const std::string &name);
     void saveToFile();
     void loadFromFile();
-
 };
+
+extern PlayerLinkedList players;
 
 
 #endif //FILEMODULE_H
