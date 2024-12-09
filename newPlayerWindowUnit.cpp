@@ -30,9 +30,9 @@ void newPlayerWin() {
     }
     sf::Text newNameEdit;
     newNameEdit.setFont(font);
-    newNameEdit.setCharacterSize(15);
-    newNameEdit.setFillColor(sf::Color::Blue);
-    newNameEdit.setPosition(100, 100);
+    newNameEdit.setCharacterSize(65);
+    newNameEdit.setFillColor(sf::Color::White);
+    newNameEdit.setPosition(220, 190);
     std::string newNameStr;
 
 
@@ -52,7 +52,10 @@ void newPlayerWin() {
             if (event.type == sf::Event::TextEntered) {
                 if (event.text.unicode == '\b' && !newNameStr.empty()) {
                     newNameStr.pop_back();
+                } else if (event.text.unicode < 128 && event.text.unicode != '\b') {
+                    newNameStr += static_cast<char>(event.text.unicode);
                 }
+                newNameEdit.setString(newNameStr);
             }
 
         }
