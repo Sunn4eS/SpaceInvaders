@@ -24,6 +24,18 @@ void newPlayerWin() {
     float scaleY = static_cast<float>(newPlayerWindowSize.y) / textureSize.y;
     backgroundNewPlayerSprite.setScale(scaleX, scaleY);
 
+    sf::Font font;
+    if (!font.loadFromFile("fonts\\ofont.ru_DS Crystal.ttf")) {
+        std::cerr << "Failed to load font" << std::endl;
+    }
+    sf::Text newNameEdit;
+    newNameEdit.setFont(font);
+    newNameEdit.setCharacterSize(15);
+    newNameEdit.setFillColor(sf::Color::Blue);
+    newNameEdit.setPosition(100, 100);
+    std::string newNameStr;
+
+
     //main cycle
     while (newPlayerWindow.isOpen()) {
         sf::Event event;
@@ -37,12 +49,17 @@ void newPlayerWin() {
                 windowSize.y = NEW_PLAYER_WINDOW_HEIGHT;
                 newPlayerWindow.setSize(windowSize);
             }
+            if (event.type == sf::Event::TextEntered) {
+                if (event.text.unicode == '\b' && !newNameStr.empty()) {
+                    newNameStr.pop_back();
+                }
+            }
+
         }
-
-
-
         newPlayerWindow.clear();
+
         newPlayerWindow.draw(backgroundNewPlayerSprite);
+        newPlayerWindow.draw(newNameEdit);
         newPlayerWindow.display();
 
     }
