@@ -6,23 +6,25 @@
 
 #include <SFML/Window/Event.hpp>
 
-DropBox::DropBox(sf::Font &font, const std::vector<std::string> &names, float x, float y, float width, float height) : isOpen(false), selectedIndex(-1) {
+DropBox::DropBox(sf::Font &font, const std::vector<std::string> &names, float x, float y, float width, float height, int visibleCount) : isOpen(false), selectedIndex(-1), scrollOffset(0) {
     mainRect.setSize(sf::Vector2f(width, height));
     mainRect.setPosition(x, y);
     mainRect.setFillColor(sf::Color::White);
+    mainText.setOutlineColor(sf::Color::Yellow);
     mainText.setFont(font);
-    mainText.setCharacterSize(40);
-    mainText.setPosition(x + 10, y + 10);
+    mainText.setCharacterSize(50);
+    mainText.setPosition(x + 5, y - 5);
     mainText.setFillColor(sf::Color::Black);
 
     for (const auto &name : names) {
         sf::Text text;
         text.setFont(font);
         text.setString(name);
-        text.setCharacterSize(40);
+        text.setCharacterSize(50);
         text.setFillColor(sf::Color::Black);
         itemsTexts.push_back(text);
     }
+    visibleItems = visibleCount;
     updateItemsPosition();
 }
 
@@ -37,6 +39,11 @@ void DropBox::draw(sf::RenderWindow &window) {
         for (const auto &texts : itemsTexts) {
             window.draw(texts);
         }
+        if (selectedIndex >= 0 && selectedIndex < itemsTexts.size()) {
+            sf::RectangleShape rect(sf::Vector2f(mainRect.getSize().x, 30));
+            rect.setPosition(itemsTexts[selectedIndex].getPosition().x - 5, itemsTexts[selectedIndex].getPosition().y - 5);
+            rect.setFillColor(sf::Color::Green);
+        }
     }
 }
 
@@ -47,9 +54,11 @@ void DropBox::updateItemsPosition() {
         rect.setSize(mainRect.getSize());
         rect.setPosition(mainText.getPosition().x, mainText.getPosition().y + (i + 1) * mainRect.getSize().y);
         rect.setFillColor(sf::Color::White);
+        rect.setOutlineColor(sf::Color::Yellow);
         itemsRects.push_back(rect);
         itemsTexts[i].setPosition(mainRect.getPosition().x + 5, mainRect.getPosition().y + (i + 1) * mainRect.getSize().y + 5);
     }
+
 }
 
 void DropBox::handleEvent(sf::Event &event) {
@@ -62,9 +71,31 @@ void DropBox::handleEvent(sf::Event &event) {
             for (size_t i = 0; i < itemsTexts.size(); ++i) {
                 if (itemsTexts[i].getGlobalBounds().contains(mouseX, mouseY)) {
                     selectedIndex = static_cast<int>(i);
+                    mainRect.setFillColor(sf::Color::Yellow);
                     mainText.setString(itemsTexts[i].getString());
                     isOpen = false;
                     break;
+                }
+            }
+        }
+    } else if (event.type == sf::Event::KeyPressed) {
+        if (isOpen) {
+            if (event.key.code == sf::Keyboard::Up) {
+                selectedIndex = std::max(0, selectedIndex - 1);
+                mainText.setString(itemsTexts[selectedIndex].getString());
+                updateItemsPosition();
+            } else if (event.key.code == sf::Keyboard::Down) {
+                selectedIndex = std::min(static_cast<int>(itemsTexts.size()) - 1, selectedIndex + 1);
+                if (selectedIndex >= scrollOffset + visibleItems) {
+                    scrollOffset = std::min(static_cast<int>(itemsTexts.size()) - visibleItems, scrollOffset);
+                }
+                mainText.setString(itemsTexts[selectedIndex].getString());
+                updateItemsPosition();
+            } else if (event.key.code == sf::Keyboard::Enter) {
+                if (selectedIndex >= 0 && selectedIndex < itemsTexts.size()) {
+                    mainRect.setFillColor(sf::Color::Yellow);
+                    mainText.setString(itemsTexts[selectedIndex].getString());
+                    isOpen = false;
                 }
             }
         }

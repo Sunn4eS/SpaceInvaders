@@ -11,14 +11,16 @@
 
 class DropBox {
 public:
-    DropBox(sf::Font &font, const std::vector<std::string> &names, float x, float y, float width, float);
+    DropBox(sf::Font &font, const std::vector<std::string> &names, float x, float y, float width, float, int visibleCount);
     void draw(sf::RenderWindow &window);
     void handleEvent(sf::Event &event);
 
 private:
     void updateItemsPosition();
     bool isOpen;
+    int visibleItems;
     int selectedIndex;
+    int scrollOffset;
     sf::RectangleShape mainRect;
     sf::Text mainText;
     std::vector<sf::RectangleShape> itemsRects;
