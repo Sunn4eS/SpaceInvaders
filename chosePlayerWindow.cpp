@@ -84,18 +84,33 @@ void choosePlayer () {
                     newPlayerWin();
                     dropBox.update(players.createNameVector());
                 }
+
+                if (isMouseOverButtonC(deletePlayerButton, mousePos) && !dropBox.getSelectedItem().empty()) {
+                    players.remove(dropBox.getSelectedItem());
+                    players.saveToFile();
+
+                    dropBox.update(players.createNameVector());
+                    dropBox.clearMainField();
+                }
             }
+
             dropBox.handleEvent(event);
+            dropBox.update(players.createNameVector());
+
         }
+
         chooseWindow.clear();
         chooseWindow.draw(backgroundChoosePlayerSprite);
         chooseWindow.draw(newPlayerButton);
-        chooseWindow.draw(deletePlayerButton);
-        dropBox.draw(chooseWindow);
-        chooseWindow.display();
+
         if (!dropBox.getSelectedItem().empty()) {
             currentPlayer = players.getInfo(dropBox.getSelectedItem());
+            chooseWindow.draw(deletePlayerButton);
         }
+
+        dropBox.draw(chooseWindow);
+        chooseWindow.display();
+
 
     }
 
