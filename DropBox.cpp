@@ -105,6 +105,10 @@ void DropBox::handleEvent(sf::Event &event) {
     }
 }
 
+void DropBox::clearMainField() {
+    mainText.setString("");
+}
+
 void DropBox::update(std::vector<std::string> names) {
     itemsTexts.clear();
     for (const auto &name : names) {

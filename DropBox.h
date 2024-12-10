@@ -18,6 +18,7 @@ public:
     void handleEvent(sf::Event &event);
     void update(std::vector<std::string> names);
     std::string getSelectedItem() const;
+    void clearMainField();
 
 private:
     void updateItemsPosition();
