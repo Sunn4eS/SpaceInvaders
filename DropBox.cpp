@@ -118,3 +118,10 @@ void DropBox::update(std::vector<std::string> names) {
     updateItemsPosition();
 }
 
+std::string DropBox::getSelectedItem() const {
+    if (selectedIndex >= 0 && selectedIndex < itemsTexts.size()) {
+        return itemsTexts[selectedIndex].getString();
+    }
+    return "";
+}
+

@@ -8,6 +8,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "fileModule.h"
+
 
 class DropBox {
 public:
@@ -15,6 +17,7 @@ public:
     void draw(sf::RenderWindow &window);
     void handleEvent(sf::Event &event);
     void update(std::vector<std::string> names);
+    std::string getSelectedItem() const;
 
 private:
     void updateItemsPosition();
