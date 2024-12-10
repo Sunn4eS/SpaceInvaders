@@ -14,6 +14,7 @@ public:
     DropBox(sf::Font &font, const std::vector<std::string> &names, float x, float y, float width, float, int visibleCount);
     void draw(sf::RenderWindow &window);
     void handleEvent(sf::Event &event);
+    void update(std::vector<std::string> names);
 
 private:
     void updateItemsPosition();
@@ -25,6 +26,7 @@ private:
     sf::Text mainText;
     std::vector<sf::RectangleShape> itemsRects;
     std::vector<sf::Text> itemsTexts;
+    sf::Font font;
 };
 
 

@@ -6,16 +6,16 @@
 
 #include <SFML/Window/Event.hpp>
 
-DropBox::DropBox(sf::Font &font, const std::vector<std::string> &names, float x, float y, float width, float height, int visibleCount) : isOpen(false), selectedIndex(-1), scrollOffset(0) {
+DropBox::DropBox(sf::Font &fontI, const std::vector<std::string> &names, float x, float y, float width, float height, int visibleCount) : isOpen(false), selectedIndex(-1), scrollOffset(0) {
+    font = fontI;
     mainRect.setSize(sf::Vector2f(width, height));
     mainRect.setPosition(x, y);
     mainRect.setFillColor(sf::Color::White);
     mainText.setOutlineColor(sf::Color::Yellow);
     mainText.setFont(font);
-    mainText.setCharacterSize(50);
+    mainText.setCharacterSize(46);
     mainText.setPosition(x + 5, y - 5);
     mainText.setFillColor(sf::Color::Black);
-
     for (const auto &name : names) {
         sf::Text text;
         text.setFont(font);
@@ -39,8 +39,9 @@ void DropBox::draw(sf::RenderWindow &window) {
         for (const auto &texts : itemsTexts) {
             window.draw(texts);
         }
+
         if (selectedIndex >= 0 && selectedIndex < itemsTexts.size()) {
-            sf::RectangleShape rect(sf::Vector2f(mainRect.getSize().x, 30));
+            sf::RectangleShape rect(sf::Vector2f(mainRect.getSize().x, mainRect.getSize().y));
             rect.setPosition(itemsTexts[selectedIndex].getPosition().x - 5, itemsTexts[selectedIndex].getPosition().y - 5);
             rect.setFillColor(sf::Color::Green);
         }
@@ -88,6 +89,8 @@ void DropBox::handleEvent(sf::Event &event) {
                 selectedIndex = std::min(static_cast<int>(itemsTexts.size()) - 1, selectedIndex + 1);
                 if (selectedIndex >= scrollOffset + visibleItems) {
                     scrollOffset = std::min(static_cast<int>(itemsTexts.size()) - visibleItems, scrollOffset);
+
+
                 }
                 mainText.setString(itemsTexts[selectedIndex].getString());
                 updateItemsPosition();
@@ -100,5 +103,18 @@ void DropBox::handleEvent(sf::Event &event) {
             }
         }
     }
+}
+
+void DropBox::update(std::vector<std::string> names) {
+    itemsTexts.clear();
+    for (const auto &name : names) {
+        sf::Text text;
+        text.setFont(font);
+        text.setString(name);
+        text.setCharacterSize(50);
+        text.setFillColor(sf::Color::Black);
+        itemsTexts.push_back(text);
+    }
+    updateItemsPosition();
 }
 
