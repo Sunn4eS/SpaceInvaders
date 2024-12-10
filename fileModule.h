@@ -30,7 +30,7 @@ public:
     void loadFromFile();
     std::vector<std::string> createNameVector() const;
     int getCount() const;
-    void PlayerLinkedList::updateScore(std::string &name, int score);
+    void updateScore(std::string &name, int score) const;
 };
 
 extern PlayerLinkedList players;
