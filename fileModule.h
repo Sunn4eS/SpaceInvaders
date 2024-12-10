@@ -31,6 +31,7 @@ public:
     std::vector<std::string> createNameVector() const;
     int getCount() const;
     void updateScore(std::string &name, int score) const;
+    void clear();
 };
 
 extern PlayerLinkedList players;

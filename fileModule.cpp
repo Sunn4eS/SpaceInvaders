@@ -65,6 +65,7 @@ void PlayerLinkedList::saveToFile() const {
 }
 
 void PlayerLinkedList::loadFromFile() {
+    clear();
     std::ifstream file("playersData.bin", std::ios::binary);
     while (file) {
         size_t nameSize;
@@ -108,6 +109,17 @@ void PlayerLinkedList::updateScore(std::string &name, int score) const {
     }
     temp->data.score = score;
 }
+
+void PlayerLinkedList::clear() {
+    while (head) {
+        player_t *temp = head;
+        head = head->next;
+        delete temp;
+    }
+    head = nullptr;
+}
+
+
 
 
 
