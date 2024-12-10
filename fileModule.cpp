@@ -104,7 +104,7 @@ int PlayerLinkedList::getCount() const {
 
 void PlayerLinkedList::updateScore(std::string &name, int score) const {
     player_t *temp = head;
-    while (temp->data.name != name) {
+    while (temp->data.name != name && temp) {
         temp = temp->next;
     }
     temp->data.score = score;
@@ -117,6 +117,14 @@ void PlayerLinkedList::clear() {
         delete temp;
     }
     head = nullptr;
+}
+
+PlayerLinkedList::player_t* PlayerLinkedList::getInfo(std::string name) {
+    player_t *temp = head;
+    while (temp && temp->data.name != name) {
+        temp = temp->next;
+    }
+    return temp;
 }
 
 

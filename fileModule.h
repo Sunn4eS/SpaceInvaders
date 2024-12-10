@@ -32,6 +32,7 @@ public:
     int getCount() const;
     void updateScore(std::string &name, int score) const;
     void clear();
+    player_t* getInfo(std::string name);
 };
 
 extern PlayerLinkedList players;
