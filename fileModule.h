@@ -6,6 +6,7 @@
 #define FILEMODULE_H
 
 #include <string>
+#include <vector>
 
 
 class PlayerLinkedList {
@@ -25,8 +26,11 @@ public:
 
     void add(std::string &name, int score);
     void remove(const std::string &name);
-    void saveToFile();
+    void saveToFile() const;
     void loadFromFile();
+    std::vector<std::string> createNameVector() const;
+    int getCount() const;
+    void PlayerLinkedList::updateScore(std::string &name, int score);
 };
 
 extern PlayerLinkedList players;

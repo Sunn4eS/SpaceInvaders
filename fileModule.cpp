@@ -5,6 +5,7 @@
 #include "fileModule.h"
 #include <string>
 #include <fstream>
+#include <vector>
 PlayerLinkedList players;
 
 PlayerLinkedList::PlayerLinkedList() : head(nullptr) {}
@@ -17,7 +18,7 @@ PlayerLinkedList::~PlayerLinkedList() {
 }
 
 void PlayerLinkedList::add(std::string &name, int score) {
-    player_t *newPlayer = new player_t{{name, score},nullptr };
+    auto *newPlayer = new player_t{{name, score},nullptr };
     if (head == nullptr) {
         head = newPlayer;
     } else {
@@ -50,7 +51,7 @@ void PlayerLinkedList::remove(const std::string &name) {
     }
 }
 
-void PlayerLinkedList::saveToFile() {
+void PlayerLinkedList::saveToFile() const {
     std::ofstream file("playersData.bin", std::ios::binary);
     player_t *temp = head;
     while (temp) {
@@ -79,5 +80,35 @@ void PlayerLinkedList::loadFromFile() {
     }
     file.close();
 }
+
+std::vector<std::string> PlayerLinkedList::createNameVector() const {
+    player_t *temp = head;
+    std::vector <std::string> nameVector;
+    while (temp) {
+        nameVector.push_back(temp->data.name);
+        temp = temp->next;
+    }
+    return nameVector;
+}
+
+int PlayerLinkedList::getCount() const {
+    player_t *temp = head;
+    int count = 0;
+    while (temp) {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
+void PlayerLinkedList::updateScore(std::string &name, int score) {
+    player_t *temp = head;
+    while (temp->data.name != name) {
+        temp = temp->next;
+    }
+    temp->data.score = score;
+}
+
+
 
 
