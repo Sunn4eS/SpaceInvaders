@@ -79,7 +79,7 @@ void newPlayerWin() {
             }
             if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(newPlayerWindow);
-                if (isMouseOverButtonOk(okButton, mousePos)) {
+                if (isMouseOverButtonOk(okButton, mousePos) && !newNameStr.empty()) {
                     //add new player
                     players.add(newNameStr, 0);
                     players.saveToFile();
