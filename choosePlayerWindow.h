@@ -4,7 +4,10 @@
 
 #ifndef CHOOSEPLAYERWINDOW_H
 #define CHOOSEPLAYERWINDOW_H
+#include "fileModule.h"
 
 void choosePlayer();
+
+extern PlayerLinkedList::player_t* currentPlayer;
 
 #endif //CHOOSEPLAYERWINDOW_H
