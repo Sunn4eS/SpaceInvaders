@@ -7,6 +7,7 @@ RocketClass::RocketClass(float startX, float startY) : speed(5.0f) {
     rocketTexture.loadFromFile("images\\BulletRocket.png");
     rocketSprite.setTexture(rocketTexture);
     rocketSprite.setPosition(startX, startY);
+    rocketSprite.setScale(4, 4);
 }
 
 void RocketClass::draw(sf::RenderWindow &window) {
