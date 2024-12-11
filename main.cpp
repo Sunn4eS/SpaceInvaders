@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "choosePlayerWindow.h"
+#include "fileModule.h"
 
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
@@ -89,6 +90,7 @@ int main() {
                 }
                 if (isMouseOverButton(exitButton, mousePos)) {
                     window.close();
+                    players.saveToFile();
                     //Save to file
                 }
                 if (isMouseOverButton(playerButton, mousePos)) {
@@ -97,7 +99,9 @@ int main() {
             }
             window.clear();
             window.draw(backgroundSprite);
-            window.draw(startButton);
+            if (currentPlayer) {
+                window.draw(startButton);
+            }
             window.draw(playerButton);
             window.draw(scoreButton);
             window.draw(exitButton);
