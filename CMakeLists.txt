@@ -12,5 +12,13 @@ add_executable(FirstTry main.cpp
         fileModule.h
         fileModule.cpp
         newPlayerWindowUnit.h
-        newPlayerWindowUnit.cpp)
+        newPlayerWindowUnit.cpp
+        DropBox.h
+        DropBox.cpp
+        gameWindowUnit.h
+        gameWindowUnit.cpp
+        RocketClass.h
+        RocketClass.cpp
+        CannonClass.h
+        CannonClass.cpp)
 target_link_libraries(FirstTry sfml-graphics sfml-window sfml-system)
