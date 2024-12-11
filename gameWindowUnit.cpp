@@ -1,8 +1,9 @@
-//
-// Created by User on 11.12.2024.
-//
 #include <SFML/Graphics.hpp>
 #include "gameWindowUnit.h"
+
+
+#include "RocketClass.h"
+#include "CannonClass.h"
 
 #include <iostream>
 
@@ -21,6 +22,9 @@ void game() {
 
     //Pause Button
 
+    //Rocket & Cannon initialize
+    CannonClass cannon(windowSize.x / 2, 900);
+    std::vector<RocketClass> rockets;
 
 
     //Main Cycle
@@ -35,10 +39,33 @@ void game() {
                 windowSize.y = GAME_WINDOW_HEIGHT;
                 gameWindow.setSize(windowSize);
             }
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Space) {
+                    rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top);
+                }
 
+            }
         }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            cannon.moveLeft();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            cannon.moveRight();
+        }
+
+        cannon.update();
+        for (auto& rocket : rockets) {
+            rocket.update();
+        }
+        rockets.erase(std::remove_if(rockets.begin(), rockets.end(), [](RocketClass& rocket){
+            return rocket.getBounds().top < 0;
+        }), rockets.end());
         gameWindow.clear();
         gameWindow.draw(backgroundSprite);
+        cannon.draw(gameWindow);
+        for (auto& rocket : rockets) {
+            rocket.draw(gameWindow);
+        }
         gameWindow.display();
 
     }
