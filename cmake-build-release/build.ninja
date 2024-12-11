@@ -81,6 +81,38 @@ build CMakeFiles/FirstTry.dir/newPlayerWindowUnit.cpp.obj: CXX_COMPILER__FirstTr
   OBJECT_DIR = CMakeFiles\FirstTry.dir
   OBJECT_FILE_DIR = CMakeFiles\FirstTry.dir
 
+build CMakeFiles/FirstTry.dir/DropBox.cpp.obj: CXX_COMPILER__FirstTry_unscanned_Release D$:/BSUIR/Construction$ Of$ Software/Course$ Work/FirstTry/DropBox.cpp || cmake_object_order_depends_target_FirstTry
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\FirstTry.dir\DropBox.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem "D:/Apps/CLion/CLion 2024.2.1/bin/SFML-2.6.2/include"
+  OBJECT_DIR = CMakeFiles\FirstTry.dir
+  OBJECT_FILE_DIR = CMakeFiles\FirstTry.dir
+
+build CMakeFiles/FirstTry.dir/gameWindowUnit.cpp.obj: CXX_COMPILER__FirstTry_unscanned_Release D$:/BSUIR/Construction$ Of$ Software/Course$ Work/FirstTry/gameWindowUnit.cpp || cmake_object_order_depends_target_FirstTry
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\FirstTry.dir\gameWindowUnit.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem "D:/Apps/CLion/CLion 2024.2.1/bin/SFML-2.6.2/include"
+  OBJECT_DIR = CMakeFiles\FirstTry.dir
+  OBJECT_FILE_DIR = CMakeFiles\FirstTry.dir
+
+build CMakeFiles/FirstTry.dir/RocketClass.cpp.obj: CXX_COMPILER__FirstTry_unscanned_Release D$:/BSUIR/Construction$ Of$ Software/Course$ Work/FirstTry/RocketClass.cpp || cmake_object_order_depends_target_FirstTry
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\FirstTry.dir\RocketClass.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem "D:/Apps/CLion/CLion 2024.2.1/bin/SFML-2.6.2/include"
+  OBJECT_DIR = CMakeFiles\FirstTry.dir
+  OBJECT_FILE_DIR = CMakeFiles\FirstTry.dir
+
+build CMakeFiles/FirstTry.dir/CannonClass.cpp.obj: CXX_COMPILER__FirstTry_unscanned_Release D$:/BSUIR/Construction$ Of$ Software/Course$ Work/FirstTry/CannonClass.cpp || cmake_object_order_depends_target_FirstTry
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\FirstTry.dir\CannonClass.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem "D:/Apps/CLion/CLion 2024.2.1/bin/SFML-2.6.2/include"
+  OBJECT_DIR = CMakeFiles\FirstTry.dir
+  OBJECT_FILE_DIR = CMakeFiles\FirstTry.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target FirstTry
@@ -89,7 +121,7 @@ build CMakeFiles/FirstTry.dir/newPlayerWindowUnit.cpp.obj: CXX_COMPILER__FirstTr
 #############################################
 # Link the executable FirstTry.exe
 
-build FirstTry.exe: CXX_EXECUTABLE_LINKER__FirstTry_Release CMakeFiles/FirstTry.dir/main.cpp.obj CMakeFiles/FirstTry.dir/chosePlayerWindow.cpp.obj CMakeFiles/FirstTry.dir/fileModule.cpp.obj CMakeFiles/FirstTry.dir/newPlayerWindowUnit.cpp.obj | D$:/Apps/CLion/CLion$ 2024.2.1/bin/SFML-2.6.2/lib/libsfml-graphics-s.a D$:/Apps/CLion/CLion$ 2024.2.1/bin/SFML-2.6.2/lib/libsfml-window-s.a D$:/Apps/CLion/CLion$ 2024.2.1/bin/SFML-2.6.2/lib/libsfml-system-s.a D$:/Apps/CLion/CLion$ 2024.2.1/bin/SFML-2.6.2/lib/libfreetype.a
+build FirstTry.exe: CXX_EXECUTABLE_LINKER__FirstTry_Release CMakeFiles/FirstTry.dir/main.cpp.obj CMakeFiles/FirstTry.dir/chosePlayerWindow.cpp.obj CMakeFiles/FirstTry.dir/fileModule.cpp.obj CMakeFiles/FirstTry.dir/newPlayerWindowUnit.cpp.obj CMakeFiles/FirstTry.dir/DropBox.cpp.obj CMakeFiles/FirstTry.dir/gameWindowUnit.cpp.obj CMakeFiles/FirstTry.dir/RocketClass.cpp.obj CMakeFiles/FirstTry.dir/CannonClass.cpp.obj | D$:/Apps/CLion/CLion$ 2024.2.1/bin/SFML-2.6.2/lib/libsfml-graphics-s.a D$:/Apps/CLion/CLion$ 2024.2.1/bin/SFML-2.6.2/lib/libsfml-window-s.a D$:/Apps/CLion/CLion$ 2024.2.1/bin/SFML-2.6.2/lib/libsfml-system-s.a D$:/Apps/CLion/CLion$ 2024.2.1/bin/SFML-2.6.2/lib/libfreetype.a
   FLAGS = -O3 -DNDEBUG
   LINK_LIBRARIES = "D:/Apps/CLion/CLion 2024.2.1/bin/SFML-2.6.2/lib/libsfml-graphics-s.a"  "D:/Apps/CLion/CLion 2024.2.1/bin/SFML-2.6.2/lib/libsfml-window-s.a"  "D:/Apps/CLion/CLion 2024.2.1/bin/SFML-2.6.2/lib/libsfml-system-s.a"  -lOpenGL32  -lwinmm  -lgdi32  "D:/Apps/CLion/CLion 2024.2.1/bin/SFML-2.6.2/lib/libfreetype.a"  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\FirstTry.dir
