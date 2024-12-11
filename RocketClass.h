@@ -9,16 +9,15 @@
 
 class RocketClass {
 public:
-  RocketClass() : lifes(3), rWidth(90), rHeight(90) {};
-
+  RocketClass(float startX, float startY);
+  sf::FloatRect getBounds();
+  void draw(sf::RenderWindow &window);
+  void update();
 
 private:
-  int lifes;
-  int rWidth;
-  int rHeight;
+  float speed;
   sf::Texture rocketTexture;
   sf::Sprite rocketSprite;
-  void loadTexture();
 };
 
 

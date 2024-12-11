@@ -3,8 +3,18 @@
 //
 
 #include "RocketClass.h"
-
-void RocketClass::loadTexture() {
-    rocketTexture.loadFromFile("images\\Rocket.png");
+RocketClass::RocketClass(float startX, float startY) : speed(5.0f) {
+    rocketTexture.loadFromFile("images\\BulletRocket.png");
     rocketSprite.setTexture(rocketTexture);
+    rocketSprite.setPosition(startX, startY);
+}
+
+void RocketClass::draw(sf::RenderWindow &window) {
+    window.draw(rocketSprite);
+}
+void RocketClass::update() {
+    rocketSprite.move(0, -speed);
+}
+sf::FloatRect RocketClass::getBounds() {
+  return rocketSprite.getGlobalBounds();
 }
