@@ -2,6 +2,7 @@
 #include <iostream>
 #include "choosePlayerWindow.h"
 #include "fileModule.h"
+#include "gameWindowUnit.h"
 
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
@@ -86,7 +87,7 @@ int main() {
             if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (isMouseOverButton(startButton, mousePos)) {
-                    std::cout << "Play button pressed!" << std::endl;
+                    game();
                 }
                 if (isMouseOverButton(exitButton, mousePos)) {
                     window.close();
