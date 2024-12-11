@@ -58,6 +58,15 @@ void choosePlayer () {
     deletePlayerButton.setTexture(&deletePlayerButtonTexture, true);
 
 
+    //Save Button
+    sf::RectangleShape savePlayerButton(sf::Vector2f(CHOOSE_PLAYER_BUTTON_WIDTH, CHOOSE_PLAYER_BUTTON_HEIGHT));
+    sf::Texture savePlayerButtonTexture;
+    if (!savePlayerButtonTexture.loadFromFile("images\\SavePlayerButton.png")) {
+        std::cerr << "Failed to load scoreButton texture" << std::endl;
+    }
+    savePlayerButton.setPosition((currWindowWidth - newPlayerButton.getSize().x) / 2 + CHOOSE_PLAYER_SHIFT_BUTTON * 3.1f, currWindowHeight / 2 + CHOOSE_PLAYER_SHIFT_BUTTON * 1.5);
+    savePlayerButton.setTexture(&savePlayerButtonTexture, true);
+
     //Initialize dropBox
     sf::Font font;
     if (!font.loadFromFile("fonts\\ofont.ru_DS Crystal.ttf")) {
@@ -92,6 +101,10 @@ void choosePlayer () {
                     dropBox.update(players.createNameVector());
                     dropBox.clearMainField();
                 }
+                if (isMouseOverButtonC(savePlayerButton, mousePos) && !dropBox.getSelectedItem().empty()) {
+                    currentPlayer = players.getInfo(dropBox.getSelectedItem());
+                    chooseWindow.close();
+                }
             }
 
             dropBox.handleEvent(event);
@@ -104,11 +117,12 @@ void choosePlayer () {
         chooseWindow.draw(newPlayerButton);
 
         if (!dropBox.getSelectedItem().empty()) {
-            currentPlayer = players.getInfo(dropBox.getSelectedItem());
             chooseWindow.draw(deletePlayerButton);
+            chooseWindow.draw(savePlayerButton);
         }
 
         dropBox.draw(chooseWindow);
+
         chooseWindow.display();
 
 
