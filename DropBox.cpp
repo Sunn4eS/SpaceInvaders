@@ -57,7 +57,7 @@ void DropBox::updateItemsPosition() {
         rect.setFillColor(sf::Color::White);
         rect.setOutlineColor(sf::Color::Yellow);
         itemsRects.push_back(rect);
-        itemsTexts[i].setPosition(mainRect.getPosition().x + 5, mainRect.getPosition().y + (i + 1) * mainRect.getSize().y + 5);
+        itemsTexts[i].setPosition(mainRect.getPosition().x + 5, mainRect.getPosition().y + (i + 1) * mainRect.getSize().y - 5);
     }
 
 }
