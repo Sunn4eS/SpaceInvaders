@@ -20,11 +20,11 @@ class AlienClass {
 public:
     AlienClass(float x, float y, AlienColor color, int score);
     void draw(sf::RenderWindow &window);
-    void update(float deltaTime);
+    void update(float deltaTime, std::vector<RocketClass> &alienBullets);
     sf::FloatRect getBounds() const;
     void setPosition(float x, float y);
 
-    bool tryToShoot(std::vector<RocketClass> &bullets);
+    void tryToShoot(std::vector<RocketClass> &bullets);
 
     void setDirection(float dirX, float dirY);
 

@@ -49,8 +49,10 @@ void AlienClass::draw(sf::RenderWindow &window) {
     window.draw(sprite);
 }
 
-void AlienClass::update(float deltaTime) {
+void AlienClass::update(float deltaTime, std::vector<RocketClass> &alienBullets) {
     sprite.move(speed * direction.x * deltaTime, speed * direction.y * deltaTime);
+    shootTimer += deltaTime;
+    tryToShoot(alienBullets);
 }
 
 sf::FloatRect AlienClass::getBounds() const {
@@ -66,14 +68,12 @@ void AlienClass::setSpeed(float newSpeed) {
 void AlienClass::setPosition(float x, float y) {
     sprite.setPosition(x, y);
 }
-bool AlienClass::tryToShoot(std::vector<RocketClass> &bullets) {
+void AlienClass::tryToShoot(std::vector<RocketClass> &bullets) {
     if (shootTimer >= shootInterval && canShoot) {
         bullets.emplace_back(sprite.getPosition().x + sprite.getGlobalBounds().width / 2, sprite.getPosition().y + sprite.getGlobalBounds().height, false);
         shootTimer = 0.0f;
         shootInterval = 1.0f + static_cast<float>(rand()) / static_cast<float>(RAND_MAX / 2.0f);
-        return true;
     }
-    return false;
 }
 
 
