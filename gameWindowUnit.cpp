@@ -26,9 +26,18 @@ void game() {
 
     //Lives
     sf::Texture heartTexture;
-    sf::Sprite heartSprite(heartTexture);
-    heartSprite.setTexture(TextureManager::getTexture("images\\Heart.png"));
+   // sf::Sprite heartSprite(TextureManager::getTexture("images\\Heart.png"));
+   // heartSprite.setPosition(100, 100);
     int lives = 3;
+
+    std::vector<sf::Sprite> hearts;
+    for (int i = 0; i < lives; i++) {
+        sf::Sprite heartSprite(TextureManager::getTexture("images\\Heart.png"));
+        heartSprite.setPosition(75 * i + 100, 0);
+        hearts.push_back(heartSprite);
+    }
+
+
 
     //Pause Button
 
@@ -158,6 +167,11 @@ void game() {
         for (auto& alien : alienBullet) {
             alien.draw(gameWindow);
         }
+
+        for (auto& heart : hearts) {
+            gameWindow.draw(heart);
+        }
+    //  gameWindow.draw(heartSprite);
 
         gameWindow.display();
     }
