@@ -25,5 +25,7 @@ add_executable(FirstTry main.cpp
         AlienClass.cpp
         TextureManagerClass.h
         gameOverWindowUnit.h
-        gameOverWindowUnit.cpp)
+        gameOverWindowUnit.cpp
+        scoreBoardWindowUnit.h
+        scoreBoardWindowUnit.cpp)
 target_link_libraries(FirstTry sfml-graphics sfml-window sfml-system)
