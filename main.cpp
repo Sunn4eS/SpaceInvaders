@@ -3,6 +3,7 @@
 #include "choosePlayerWindow.h"
 #include "fileModule.h"
 #include "gameWindowUnit.h"
+#include "scoreBoardWindowUnit.h"
 
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
@@ -88,15 +89,21 @@ int main() {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (isMouseOverButton(startButton, mousePos)) {
                     game();
+                    players.saveToFile();
                 }
                 if (isMouseOverButton(exitButton, mousePos)) {
-                    window.close();
                     players.saveToFile();
+                    window.close();
                     //Save to file
                 }
                 if (isMouseOverButton(playerButton, mousePos)) {
                     choosePlayer();
                 }
+                if (isMouseOverButton(scoreButton, mousePos)) {
+                    players.loadFromFile();
+                    scoreBoard(players);
+                }
+
             }
             window.clear();
             window.draw(backgroundSprite);
