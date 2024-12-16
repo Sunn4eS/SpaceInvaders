@@ -3,8 +3,10 @@
 #include <iostream>
 #include <ostream>
 
+#include "RocketClass.h"
 
-AlienClass::AlienClass(float x, float y, AlienColor color, int score) : isKilled(false), speed(100.0f), acceleration(1), direction(1.0f, 0.0f) {
+
+AlienClass::AlienClass(float x, float y, AlienColor color, int score) : speed(100.0f), direction(1.0f, 0.0f), shootTimer(0.0f), shootInterval(1.0f + static_cast<float>(rand()) / (RAND_MAX / 2.0f)) {
     std::string texturePath;
     switch (color) {
         case AlienColor::RED: {
@@ -63,6 +65,15 @@ void AlienClass::setSpeed(float newSpeed) {
 }
 void AlienClass::setPosition(float x, float y) {
     sprite.setPosition(x, y);
+}
+bool AlienClass::tryToShoot(std::vector<RocketClass> &bullets) {
+    if (shootTimer >= shootInterval && canShoot) {
+        bullets.emplace_back(sprite.getPosition().x + sprite.getGlobalBounds().width / 2, sprite.getPosition().y + sprite.getGlobalBounds().height, false);
+        shootTimer = 0.0f;
+        shootInterval = 1.0f + static_cast<float>(rand()) / static_cast<float>(RAND_MAX / 2.0f);
+        return true;
+    }
+    return false;
 }
 
 

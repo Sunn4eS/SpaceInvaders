@@ -10,6 +10,8 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include "RocketClass.h"
+
 
 #define ALIEN_SHIFT 150
 enum class AlienColor { RED, GREEN, PURPLE, BLUE, YELLOW};
@@ -21,6 +23,8 @@ public:
     void update(float deltaTime);
     sf::FloatRect getBounds() const;
     void setPosition(float x, float y);
+
+    bool tryToShoot(std::vector<RocketClass> &bullets);
 
     void setDirection(float dirX, float dirY);
 
@@ -34,6 +38,8 @@ private:
     bool canShoot;
     float acceleration;
     sf::Vector2f direction;
+    float shootTimer;
+    float shootInterval;
 };
 
 
