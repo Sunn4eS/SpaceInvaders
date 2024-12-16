@@ -12,6 +12,20 @@
 
 #define GAME_WINDOW_WIDTH 1920
 #define GAME_WINDOW_HEIGHT 1080
+void initializeAliens(std::vector<AlienClass>& aliens, float &alienSpeed, float &alienAcceleration, float &alienDirection) {
+    alienSpeed = 100.0f;
+    alienAcceleration = 10.0f;
+    alienDirection = 1.0f;
+    for (int i = 0; i < 10; i++) {
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT, AlienColor::RED, 50);
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 1.5, AlienColor::GREEN, 40);
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 2, AlienColor::PURPLE, 30);
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 2.5, AlienColor::BLUE, 20);
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 3, AlienColor::YELLOW, 10);
+    }
+}
+
+
 
 
 void game() {
@@ -53,18 +67,12 @@ void game() {
     std::vector<RocketClass> rockets;
 
     // Alien initialization
-    std::vector<AlienClass> aliens;
     std::vector<RocketClass> alienBullet;
-    float alienSpeed = 100.0f;
-    float alienAcceleration = 10.0f;
-    float alienDirection = 1.0f;
-    for (int i = 0; i < 10; i++) {
-        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT, AlienColor::RED, 50);
-        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 1.5, AlienColor::GREEN, 40);
-        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 2, AlienColor::PURPLE, 30);
-        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 2.5, AlienColor::BLUE, 20);
-        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 3, AlienColor::YELLOW, 10);
-    }
+    std::vector<AlienClass> aliens;
+    float alienSpeed;
+    float alienAcceleration;
+    float alienDirection;
+    initializeAliens(aliens, alienSpeed, alienAcceleration, alienDirection);
 
     //Main Cycle
     sf::Clock clock;
@@ -81,7 +89,7 @@ void game() {
             }
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Space) {
-                    if (rockets.empty()) {
+                     if (rockets.empty()) {
                         rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top, true);
                     }
                 }
@@ -149,7 +157,7 @@ void game() {
                 lives--;
                 if (lives == 0) {
                     gameWindow.close();
-
+                    currentPlayer->data.score = score;
                 }
                 hearts.pop_back();
                 //explosionSound.play();
@@ -166,7 +174,7 @@ void game() {
               //  explosionSound.play();
               //  explosions.emplace_back(cannon.getBounds().left, cannon.getBounds().top, explosionTexture);
 
-                return true; // Удаление ракеты
+                return true;
                 } return false;
         }),
         alienBullet.end());
@@ -179,7 +187,13 @@ void game() {
                     itAlien = aliens.erase(itAlien);
                     itRocket = rockets.erase(itRocket);
                     rocketRemoved = true;
+
                     score += itAlien->getScore();
+                    scoreText.setString("Score: " + std::to_string(score));
+
+                    if (aliens.empty()) {
+                        initializeAliens(aliens, alienSpeed, alienAcceleration, alienDirection);
+                    }
                     break;
                 } else {
                     ++itAlien;
