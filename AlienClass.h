@@ -20,6 +20,7 @@ public:
     void draw(sf::RenderWindow &window);
     void update(float deltaTime);
     sf::FloatRect getBounds() const;
+    void setPosition(float x, float y);
 
     void setDirection(float dirX, float dirY);
 

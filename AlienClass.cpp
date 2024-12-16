@@ -4,7 +4,7 @@
 #include <ostream>
 
 
-AlienClass::AlienClass(float x, float y, AlienColor color, int score) : isKilled(false), speed(2.0f), acceleration(1), direction(1.0f, 0.0f) {
+AlienClass::AlienClass(float x, float y, AlienColor color, int score) : isKilled(false), speed(100.0f), acceleration(1), direction(1.0f, 0.0f) {
     std::string texturePath;
     switch (color) {
         case AlienColor::RED: {
@@ -61,5 +61,9 @@ void AlienClass::setDirection(float dirX, float dirY) {
 void AlienClass::setSpeed(float newSpeed) {
     speed = newSpeed;
 }
+void AlienClass::setPosition(float x, float y) {
+    sprite.setPosition(x, y);
+}
+
 
 
