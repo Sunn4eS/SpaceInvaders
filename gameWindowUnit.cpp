@@ -66,7 +66,9 @@ void game() {
             }
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Space) {
-                    rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top, true);
+                    if (rockets.empty()) {
+                        rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top, true);
+                    }
                 }
 
             }
@@ -112,16 +114,20 @@ void game() {
                 alien.setSpeed(alienSpeed);
             }
         }
-
-        //Shooting
-
+        //
 
 
-
+        //Delete rockets
         rockets.erase(std::remove_if(rockets.begin(), rockets.end(), [](RocketClass& rocket){
             return rocket.getBounds().top < 0;
         }), rockets.end());
 
+        //Delete alien Bullets
+        alienBullet.erase(std::remove_if(alienBullet.begin(), alienBullet.end(), [&gameWindow](RocketClass& alien){
+            return alien.getBounds().top > gameWindow.getSize().y;
+        }), alienBullet.end());
+
+        //Deleting rockets
         for (auto itRocket = rockets.begin(); itRocket != rockets.end(); ) {
             bool rocketRemoved = false;
             for (auto itAlien = aliens.begin(); itAlien != aliens.end(); ) {
