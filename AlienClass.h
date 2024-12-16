@@ -18,13 +18,15 @@ enum class AlienColor { RED, GREEN, PURPLE, BLUE, YELLOW};
 
 class AlienClass {
 public:
-    AlienClass(float x, float y, AlienColor color, int score);
+    AlienClass(float x, float y, AlienColor color, int score_);
     void draw(sf::RenderWindow &window);
     void update(float deltaTime, std::vector<RocketClass> &alienBullets);
     sf::FloatRect getBounds() const;
     void setPosition(float x, float y);
 
     void tryToShoot(std::vector<RocketClass> &bullets);
+
+    int getScore();
 
     void setDirection(float dirX, float dirY);
 
@@ -40,6 +42,7 @@ private:
     sf::Vector2f direction;
     float shootTimer;
     float shootInterval;
+    int score;
 };
 
 

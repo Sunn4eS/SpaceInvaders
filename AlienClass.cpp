@@ -6,7 +6,7 @@
 #include "RocketClass.h"
 
 
-AlienClass::AlienClass(float x, float y, AlienColor color, int score) : speed(100.0f), direction(1.0f, 0.0f), shootTimer(0.0f), shootInterval(1.0f + static_cast<float>(rand()) / (RAND_MAX / 2.0f)) {
+AlienClass::AlienClass(float x, float y, AlienColor color, int score_) : speed(100.0f), direction(1.0f, 0.0f), shootTimer(0.0f), shootInterval(1.0f + static_cast<float>(rand()) / (RAND_MAX / 2.0f)) {
     std::string texturePath;
     switch (color) {
         case AlienColor::RED: {
@@ -40,7 +40,7 @@ AlienClass::AlienClass(float x, float y, AlienColor color, int score) : speed(10
     } catch(const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl; throw;
     }
-
+    score = score_;
     sprite.setPosition(x, y);
 }
 
@@ -73,6 +73,10 @@ void AlienClass::tryToShoot(std::vector<RocketClass> &bullets) {
         shootTimer = 0.0f;
         shootInterval = 1.0f + static_cast<float>(rand()) / static_cast<float>(RAND_MAX / 2.0f);
     }
+}
+
+int AlienClass::getScore() {
+    return score;
 }
 
 
