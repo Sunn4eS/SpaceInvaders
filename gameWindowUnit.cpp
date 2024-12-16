@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+#include "AlienClass.h"
+
 #define GAME_WINDOW_WIDTH 1920
 #define GAME_WINDOW_HEIGHT 1080
 
@@ -22,12 +24,25 @@ void game() {
 
     //Pause Button
 
-    //Rocket & Cannon initialize
+
+    //Rocket & Cannon initialization
     CannonClass cannon(windowSize.x / 2, 900);
     std::vector<RocketClass> rockets;
 
+    // Alien initialization
+    std::vector<AlienClass> aliens;
+    float alienSpeed = 15.0f;
+    float alienAcceleration = 10.0f;
+    for (int i = 0; i < 10; i++) {
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT, AlienColor::RED, 50);
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 1.5, AlienColor::GREEN, 40);
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 2, AlienColor::PURPLE, 30);
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 2.5, AlienColor::BLUE, 20);
+        aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 3, AlienColor::YELLOW, 10);
+    }
 
     //Main Cycle
+    sf::Clock clock;
     while (gameWindow.isOpen()) {
         sf::Event event;
         while (gameWindow.pollEvent(event)) {
@@ -52,20 +67,49 @@ void game() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             cannon.moveRight();
         }
+        float deltaTime = clock.restart().asSeconds();
 
         cannon.update();
         for (auto& rocket : rockets) {
             rocket.update();
         }
+
+        for (auto& alien : aliens) {
+            alien.update(deltaTime);
+            if (alien.getBounds().left <= 0 || alien.getBounds().left + alien.getBounds().width >= windowSize.x) {
+                for (auto& a: aliens) {
+                    a.setDirection(-a.getBounds().left, 1.0f);
+                    a.setSpeed(alienSpeed);
+                }
+                alienSpeed += alienAcceleration;
+                break;
+            }
+        }
+
         rockets.erase(std::remove_if(rockets.begin(), rockets.end(), [](RocketClass& rocket){
             return rocket.getBounds().top < 0;
         }), rockets.end());
+
+        for (auto& rocket : rockets) {
+            aliens.erase(std::remove_if(aliens.begin(), aliens.end(), [&rocket](const AlienClass& alien) {
+                return rocket.getBounds().intersects(alien.getBounds());
+            }
+            ),
+            aliens.end());
+        }
+
+
         gameWindow.clear();
         gameWindow.draw(backgroundSprite);
         cannon.draw(gameWindow);
         for (auto& rocket : rockets) {
             rocket.draw(gameWindow);
         }
+
+        for (auto& alien : aliens) {
+            alien.draw(gameWindow);
+        }
+
         gameWindow.display();
 
     }
