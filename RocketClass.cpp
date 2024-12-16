@@ -3,19 +3,29 @@
 //
 
 #include "RocketClass.h"
-RocketClass::RocketClass(float startX, float startY) : speed(5.0f) {
-    rocketTexture.loadFromFile("images\\BulletRocket.png");
-    rocketSprite.setTexture(rocketTexture);
+#include "TextureManagerClass.h"
+RocketClass::RocketClass(float startX, float startY, bool cannon) : speed(5.0f) {
+    if (cannon) {
+        rocketSprite.setTexture(TextureManager::getTexture("images\\BulletRocket.png"));
+        rocketSprite.setScale(4, 4);
+    } else {
+        rocketSprite.setTexture(TextureManager::getTexture("images\\AlienBullet.png"));
+    }
     rocketSprite.setPosition(startX, startY);
-    rocketSprite.setScale(4, 4);
+
 }
 
 void RocketClass::draw(sf::RenderWindow &window) {
     window.draw(rocketSprite);
 }
-void RocketClass::update() {
-    rocketSprite.move(0, -speed);
+void RocketClass::update(bool cannon) {
+    if (cannon) {
+        rocketSprite.move(0, -speed);
+    } else {
+        rocketSprite.move(0, speed);
+    }
 }
+
 sf::FloatRect RocketClass::getBounds() {
   return rocketSprite.getGlobalBounds();
 }

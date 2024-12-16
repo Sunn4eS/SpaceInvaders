@@ -9,10 +9,10 @@
 
 class RocketClass {
 public:
-  RocketClass(float startX, float startY);
+  RocketClass(float startX, float startY, bool cannon);
   sf::FloatRect getBounds();
   void draw(sf::RenderWindow &window);
-  void update();
+  void update(bool cannon);
 
 private:
   float speed;
