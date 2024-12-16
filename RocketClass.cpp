@@ -8,6 +8,7 @@ RocketClass::RocketClass(float startX, float startY, bool cannon) : speed(5.0f) 
     if (cannon) {
         rocketSprite.setTexture(TextureManager::getTexture("images\\BulletRocket.png"));
         rocketSprite.setScale(4, 4);
+        speed = 8.0f;
     } else {
         rocketSprite.setTexture(TextureManager::getTexture("images\\AlienBullet.png"));
     }
