@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "gameWindowUnit.h"
-
+#include "choosePlayerWindow.h"
 
 #include "RocketClass.h"
 #include "CannonClass.h"
@@ -26,17 +26,23 @@ void game() {
 
     //Lives
     sf::Texture heartTexture;
-   // sf::Sprite heartSprite(TextureManager::getTexture("images\\Heart.png"));
-   // heartSprite.setPosition(100, 100);
     int lives = 3;
-
     std::vector<sf::Sprite> hearts;
     for (int i = 0; i < lives; i++) {
         sf::Sprite heartSprite(TextureManager::getTexture("images\\Heart.png"));
         heartSprite.setPosition(75 * i + 100, 0);
         hearts.push_back(heartSprite);
     }
-
+    //Score
+    int score = 0;
+    sf::Font font;
+    font.loadFromFile("fonts\\ofont.ru_DS Crystal.ttf");
+    sf::Text scoreText;
+    scoreText.setFont(font);
+    scoreText.setString("Score: " + std::to_string(score));
+    scoreText.setCharacterSize(60);
+    scoreText.setColor(sf::Color::White);
+    scoreText.setPosition(1500, 0);
 
 
     //Pause Button
@@ -126,17 +132,46 @@ void game() {
         //
 
 
-        //Delete rockets
+        //Delete rockets (bounds)
         rockets.erase(std::remove_if(rockets.begin(), rockets.end(), [](RocketClass& rocket){
             return rocket.getBounds().top < 0;
         }), rockets.end());
 
-        //Delete alien Bullets
+        //Delete alien Bullets (bounds)
         alienBullet.erase(std::remove_if(alienBullet.begin(), alienBullet.end(), [&gameWindow](RocketClass& alien){
             return alien.getBounds().top > gameWindow.getSize().y;
         }), alienBullet.end());
 
-        //Deleting rockets
+        //Delete alien bullets (cannon)
+
+        for (auto itAlienRocket = alienBullet.begin(); itAlienRocket != alienBullet.end(); ){
+            if (itAlienRocket->getBounds().intersects(cannon.getBounds())) {
+                lives--;
+                if (lives == 0) {
+                    gameWindow.close();
+
+                }
+                hearts.pop_back();
+                //explosionSound.play();
+                //explosions.emplace_back(cannon.getBounds().left, cannon.getBounds().top, explosionTexture);
+                itAlienRocket = alienBullet.erase(itAlienRocket); // Удаление пули
+            } else {
+                ++itAlienRocket;
+            }
+        }
+
+
+        alienBullet.erase(std::remove_if(alienBullet.begin(), alienBullet.end(), [&cannon, lives](RocketClass& alien) {
+            if (alien.getBounds().intersects(cannon.getBounds())) {
+              //  explosionSound.play();
+              //  explosions.emplace_back(cannon.getBounds().left, cannon.getBounds().top, explosionTexture);
+
+                return true; // Удаление ракеты
+                } return false;
+        }),
+        alienBullet.end());
+
+        //Deleting rockets (aliens)
         for (auto itRocket = rockets.begin(); itRocket != rockets.end(); ) {
             bool rocketRemoved = false;
             for (auto itAlien = aliens.begin(); itAlien != aliens.end(); ) {
@@ -144,6 +179,7 @@ void game() {
                     itAlien = aliens.erase(itAlien);
                     itRocket = rockets.erase(itRocket);
                     rocketRemoved = true;
+                    score += itAlien->getScore();
                     break;
                 } else {
                     ++itAlien;
@@ -167,12 +203,10 @@ void game() {
         for (auto& alien : alienBullet) {
             alien.draw(gameWindow);
         }
-
         for (auto& heart : hearts) {
             gameWindow.draw(heart);
         }
-    //  gameWindow.draw(heartSprite);
-
+        gameWindow.draw(scoreText);
         gameWindow.display();
     }
 }
