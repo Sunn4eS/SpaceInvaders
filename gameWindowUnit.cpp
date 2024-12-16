@@ -1,14 +1,12 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "gameWindowUnit.h"
 #include "choosePlayerWindow.h"
-
 #include "RocketClass.h"
 #include "CannonClass.h"
-
-#include <iostream>
-
 #include "AlienClass.h"
 #include "TextureManagerClass.h"
+#include "gameOverWindowUnit.h"
 
 #define GAME_WINDOW_WIDTH 1920
 #define GAME_WINDOW_HEIGHT 1080
@@ -163,6 +161,7 @@ void game() {
                 lives--;
                 if (lives == 0) {
                     gameWindow.close();
+                    gameOver();
                     currentPlayer->data.score = score;
                     std::cout << "score "<< currentPlayer->data.score << "\n" << currentPlayer->data.name << "\n";
 
