@@ -20,5 +20,8 @@ add_executable(FirstTry main.cpp
         RocketClass.h
         RocketClass.cpp
         CannonClass.h
-        CannonClass.cpp)
+        CannonClass.cpp
+        AlienClass.h
+        AlienClass.cpp
+        TextureManagerClass.h)
 target_link_libraries(FirstTry sfml-graphics sfml-window sfml-system)
