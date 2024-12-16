@@ -4,7 +4,7 @@
 
 #include "CannonClass.h"
 
-CannonClass::CannonClass(float x, float y) : speed(2.0f) {
+CannonClass::CannonClass(float x, float y) : speed(8.0f) {
     cannonTexture.loadFromFile("images\\Cannon.png");
     cannonSprite.setTexture(cannonTexture);
     cannonSprite.setScale(6, 6);
