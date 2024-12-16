@@ -12,7 +12,8 @@
 
 #define GAME_WINDOW_WIDTH 1920
 #define GAME_WINDOW_HEIGHT 1080
-void initializeAliens(std::vector<AlienClass>& aliens, float &alienSpeed, float &alienAcceleration, float &alienDirection) {
+
+void alienInitialization(std::vector<AlienClass>& aliens, float &alienSpeed, float &alienAcceleration, float &alienDirection) {
     alienSpeed = 100.0f;
     alienAcceleration = 10.0f;
     alienDirection = 1.0f;
@@ -23,6 +24,17 @@ void initializeAliens(std::vector<AlienClass>& aliens, float &alienSpeed, float 
         aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 2.5, AlienColor::BLUE, 20);
         aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 3, AlienColor::YELLOW, 10);
     }
+}
+
+void scoreInitialization(int &score, sf::Text &scoreText, sf::Font &scoreFont) {
+
+    score = 0;
+    scoreFont.loadFromFile("fonts\\ofont.ru_DS Crystal.ttf");
+    scoreText.setFont(scoreFont);
+    scoreText.setString("Score: " + std::to_string(score));
+    scoreText.setCharacterSize(60);
+    scoreText.setColor(sf::Color::White);
+    scoreText.setPosition(1500, 0);
 }
 
 
@@ -48,16 +60,10 @@ void game() {
         hearts.push_back(heartSprite);
     }
     //Score
-    int score = 0;
-    sf::Font font;
-    font.loadFromFile("fonts\\ofont.ru_DS Crystal.ttf");
+    int score;
     sf::Text scoreText;
-    scoreText.setFont(font);
-    scoreText.setString("Score: " + std::to_string(score));
-    scoreText.setCharacterSize(60);
-    scoreText.setColor(sf::Color::White);
-    scoreText.setPosition(1500, 0);
-
+    sf::Font font;
+    scoreInitialization(score, scoreText, font);
 
     //Pause Button
 
@@ -72,7 +78,7 @@ void game() {
     float alienSpeed;
     float alienAcceleration;
     float alienDirection;
-    initializeAliens(aliens, alienSpeed, alienAcceleration, alienDirection);
+    alienInitialization(aliens, alienSpeed, alienAcceleration, alienDirection);
 
     //Main Cycle
     sf::Clock clock;
@@ -158,6 +164,8 @@ void game() {
                 if (lives == 0) {
                     gameWindow.close();
                     currentPlayer->data.score = score;
+                    std::cout << "score "<< currentPlayer->data.score << "\n" << currentPlayer->data.name << "\n";
+
                 }
                 hearts.pop_back();
                 //explosionSound.play();
@@ -192,7 +200,7 @@ void game() {
                     scoreText.setString("Score: " + std::to_string(score));
 
                     if (aliens.empty()) {
-                        initializeAliens(aliens, alienSpeed, alienAcceleration, alienDirection);
+                        alienInitialization(aliens, alienSpeed, alienAcceleration, alienDirection);
                     }
                     break;
                 } else {
