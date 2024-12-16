@@ -31,8 +31,9 @@ void game() {
 
     // Alien initialization
     std::vector<AlienClass> aliens;
-    float alienSpeed = 15.0f;
+    float alienSpeed = 50.0f;
     float alienAcceleration = 10.0f;
+    float alienDirection = 1.0f;
     for (int i = 0; i < 10; i++) {
         aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT, AlienColor::RED, 50);
         aliens.emplace_back(ALIEN_SHIFT * i * 0.7, ALIEN_SHIFT * 1.5, AlienColor::GREEN, 40);
@@ -73,7 +74,30 @@ void game() {
         for (auto& rocket : rockets) {
             rocket.update();
         }
+        for (auto& alien : aliens) {
+            alien.update(deltaTime);
+        }
 
+        bool hitEdge = false;
+        for (const auto& alien : aliens) {
+            if (alien.getBounds().left <= 0 || alien.getBounds().left + alien.getBounds().width >= gameWindow.getSize().x) {
+                hitEdge = true;
+                break;
+            }
+        }
+        if (hitEdge) {
+            for (auto& alien : aliens) {
+                alien.setDirection(alienDirection * -1.0f, 0.0f);
+                alien.setPosition(alien.getBounds().left, alien.getBounds().top + 50.0f);
+                alien.setSpeed(alienSpeed);
+            }
+            alienSpeed += alienAcceleration;
+            alienDirection *= -1.0f;
+
+        }
+
+
+/*
         for (auto& alien : aliens) {
             alien.update(deltaTime);
             if (alien.getBounds().left <= 0 || alien.getBounds().left + alien.getBounds().width >= windowSize.x) {
@@ -85,18 +109,29 @@ void game() {
                 break;
             }
         }
-
+*/
         rockets.erase(std::remove_if(rockets.begin(), rockets.end(), [](RocketClass& rocket){
             return rocket.getBounds().top < 0;
         }), rockets.end());
 
-        for (auto& rocket : rockets) {
-            aliens.erase(std::remove_if(aliens.begin(), aliens.end(), [&rocket](const AlienClass& alien) {
-                return rocket.getBounds().intersects(alien.getBounds());
+        for (auto itRocket = rockets.begin(); itRocket != rockets.end(); ) {
+            bool rocketRemoved = false;
+            for (auto itAlien = aliens.begin(); itAlien != aliens.end(); ) {
+                if (itRocket->getBounds().intersects(itAlien->getBounds())) {
+                    itAlien = aliens.erase(itAlien);
+                    itRocket = rockets.erase(itRocket);
+                    rocketRemoved = true;
+                    break;
+                } else {
+                    ++itAlien;
+                }
             }
-            ),
-            aliens.end());
+            if (!rocketRemoved) {
+                ++itRocket;
+            }
         }
+
+
 
 
         gameWindow.clear();
