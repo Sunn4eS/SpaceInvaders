@@ -23,5 +23,7 @@ add_executable(FirstTry main.cpp
         CannonClass.cpp
         AlienClass.h
         AlienClass.cpp
-        TextureManagerClass.h)
+        TextureManagerClass.h
+        gameOverWindowUnit.h
+        gameOverWindowUnit.cpp)
 target_link_libraries(FirstTry sfml-graphics sfml-window sfml-system)
