@@ -42,7 +42,6 @@ AlienClass::AlienClass(float x, float y, AlienColor color, int score) : speed(10
     }
 
     sprite.setPosition(x, y);
-    std::cout << "Alien created at (" << x << ", " << y << ") with texture " << texturePath << std::endl;
 }
 
 void AlienClass::draw(sf::RenderWindow &window) {
