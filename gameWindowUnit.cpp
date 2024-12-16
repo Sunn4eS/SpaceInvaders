@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "AlienClass.h"
+#include "TextureManagerClass.h"
 
 #define GAME_WINDOW_WIDTH 1920
 #define GAME_WINDOW_HEIGHT 1080
@@ -16,11 +17,18 @@
 void game() {
     sf::RenderWindow gameWindow(sf::VideoMode(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT), "Construction of the game");
     sf::Vector2u windowSize = gameWindow.getSize();
+    gameWindow.setFramerateLimit(120);
     sf::Texture backgroundTexture;
     if (!backgroundTexture.loadFromFile("images\\BackGroundImage.png")) {
         std::cerr << "Failed to load background texture" << std::endl;
     }
     sf::Sprite backgroundSprite(backgroundTexture);
+
+    //Lives
+    sf::Texture heartTexture;
+    sf::Sprite heartSprite(heartTexture);
+    heartSprite.setTexture(TextureManager::getTexture("images\\Heart.png"));
+    int lives = 3;
 
     //Pause Button
 
@@ -31,7 +39,8 @@ void game() {
 
     // Alien initialization
     std::vector<AlienClass> aliens;
-    float alienSpeed = 50.0f;
+    std::vector<RocketClass> alienBullet;
+    float alienSpeed = 100.0f;
     float alienAcceleration = 10.0f;
     float alienDirection = 1.0f;
     for (int i = 0; i < 10; i++) {
@@ -57,7 +66,7 @@ void game() {
             }
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Space) {
-                    rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top);
+                    rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top, true);
                 }
 
             }
@@ -72,12 +81,16 @@ void game() {
 
         cannon.update();
         for (auto& rocket : rockets) {
-            rocket.update();
+            rocket.update(true);
         }
         for (auto& alien : aliens) {
-            alien.update(deltaTime);
+            alien.update(deltaTime, alienBullet);
+        }
+        for (auto& alienBullets : alienBullet) {
+            alienBullets.update(false);
         }
 
+        //Check edges
         bool hitEdge = false;
         for (const auto& alien : aliens) {
             if (alien.getBounds().left <= 0 || alien.getBounds().left + alien.getBounds().width >= gameWindow.getSize().x) {
@@ -88,28 +101,23 @@ void game() {
         if (hitEdge) {
             for (auto& alien : aliens) {
                 alien.setDirection(alienDirection * -1.0f, 0.0f);
-                alien.setPosition(alien.getBounds().left, alien.getBounds().top + 50.0f);
-                alien.setSpeed(alienSpeed);
             }
+            for (auto& alien : aliens) {
+                alien.setPosition(alien.getBounds().left, alien.getBounds().top + 50.0f);
+            }
+
             alienSpeed += alienAcceleration;
             alienDirection *= -1.0f;
-
-        }
-
-
-/*
-        for (auto& alien : aliens) {
-            alien.update(deltaTime);
-            if (alien.getBounds().left <= 0 || alien.getBounds().left + alien.getBounds().width >= windowSize.x) {
-                for (auto& a: aliens) {
-                    a.setDirection(-a.getBounds().left, 1.0f);
-                    a.setSpeed(alienSpeed);
-                }
-                alienSpeed += alienAcceleration;
-                break;
+            for (auto& alien : aliens) {
+                alien.setSpeed(alienSpeed);
             }
         }
-*/
+
+        //Shooting
+
+
+
+
         rockets.erase(std::remove_if(rockets.begin(), rockets.end(), [](RocketClass& rocket){
             return rocket.getBounds().top < 0;
         }), rockets.end());
@@ -131,9 +139,6 @@ void game() {
             }
         }
 
-
-
-
         gameWindow.clear();
         gameWindow.draw(backgroundSprite);
         cannon.draw(gameWindow);
@@ -144,8 +149,10 @@ void game() {
         for (auto& alien : aliens) {
             alien.draw(gameWindow);
         }
+        for (auto& alien : alienBullet) {
+            alien.draw(gameWindow);
+        }
 
         gameWindow.display();
-
     }
 }
