@@ -7,9 +7,11 @@
 #include "AlienClass.h"
 #include "TextureManagerClass.h"
 #include "gameOverWindowUnit.h"
+#include "pauseWindowUnit.h"
 
 #define GAME_WINDOW_WIDTH 1920
 #define GAME_WINDOW_HEIGHT 1080
+#define PAUSE_BUTTON_WIDTH 100
 
 void alienInitialization(std::vector<AlienClass>& aliens, float &alienSpeed, float &alienAcceleration, float &alienDirection) {
     alienSpeed = 100.0f;
@@ -25,7 +27,6 @@ void alienInitialization(std::vector<AlienClass>& aliens, float &alienSpeed, flo
 }
 
 void scoreInitialization(int &score, sf::Text &scoreText, sf::Font &scoreFont) {
-
     score = 0;
     scoreFont.loadFromFile("fonts\\ofont.ru_DS Crystal.ttf");
     scoreText.setFont(scoreFont);
@@ -64,7 +65,13 @@ void game() {
     scoreInitialization(score, scoreText, font);
 
     //Pause Button
-
+    sf::RectangleShape pauseButton(sf::Vector2f(PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_WIDTH));
+    sf::Texture pauseButtonTexture;
+    if (!pauseButtonTexture.loadFromFile("images\\PauseButton.png")) {
+        std::cerr << "Failed to load scoreButton texture" << std::endl;
+    }
+    pauseButton.setPosition(0, 0);
+    pauseButton.setTexture(&pauseButtonTexture, true);
 
     //Rocket & Cannon initialization
     CannonClass cannon(windowSize.x / 2, 900);
@@ -81,7 +88,7 @@ void game() {
     //Main Cycle
     sf::Clock clock;
     while (gameWindow.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (gameWindow.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 gameWindow.close();
@@ -95,6 +102,15 @@ void game() {
                 if (event.key.code == sf::Keyboard::Space) {
                      if (rockets.empty()) {
                         rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top, true);
+                    }
+                }
+                if (event.key.code == sf::Keyboard::Escape) {
+                    pause();
+                }
+                if (event.type == sf::Event::MouseButtonPressed) {
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
+                    if (isMouseOverButtonC(pauseButton, mousePos)) {
+                        pause();
                     }
                 }
 
@@ -230,6 +246,7 @@ void game() {
             gameWindow.draw(heart);
         }
         gameWindow.draw(scoreText);
+        gameWindow.draw(pauseButton);
         gameWindow.display();
     }
 }
