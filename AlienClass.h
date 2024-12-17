@@ -45,6 +45,4 @@ private:
     int score;
 };
 
-
-
 #endif //ALIENCLASS_H

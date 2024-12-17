@@ -78,6 +78,3 @@ void AlienClass::tryToShoot(std::vector<RocketClass> &bullets) {
 int AlienClass::getScore() {
     return score;
 }
-
-
-

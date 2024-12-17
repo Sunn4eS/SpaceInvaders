@@ -1,6 +1,3 @@
-//
-// Created by User on 09.12.2024.
-//
 #include <SFML/Graphics.hpp>
 #include "newPlayerWindowUnit.h"
 #include <iostream>
@@ -86,9 +83,6 @@ void newPlayerWin() {
                     newPlayerWindow.close();
                 }
             }
-
-
-
         }
 
         newPlayerWindow.clear();
