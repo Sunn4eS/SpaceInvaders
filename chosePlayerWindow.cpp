@@ -16,6 +16,7 @@
 #define CHOOSE_PLAYER_SHIFT_BUTTON 80
 
 PlayerLinkedList::player_t* currentPlayer = nullptr;
+std::string currentPlayerName = "";
 
 
 
@@ -103,6 +104,7 @@ void choosePlayer () {
                 }
                 if (isMouseOverButtonC(savePlayerButton, mousePos) && !dropBox.getSelectedItem().empty()) {
                     currentPlayer = players.getInfo(dropBox.getSelectedItem());
+                    currentPlayerName = dropBox.getSelectedItem();
                     chooseWindow.close();
                 }
             }

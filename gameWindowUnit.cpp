@@ -179,10 +179,11 @@ void game() {
                 lives--;
                 if (lives == 0) {
                     gameWindow.close();
-                    gameOver();
                     if (currentPlayer->data.score < score) {
                         currentPlayer->data.score = score;
                     }
+                    gameOver();
+
                     std::cout << "score "<< currentPlayer->data.score << "\n" << currentPlayer->data.name << "\n";
 
                 }

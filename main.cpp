@@ -50,7 +50,7 @@ int main() {
     //Exit Button
     sf::RectangleShape exitButton(sf::Vector2f(150, 150));
     createButton(exitButton, (windowSize.x - exitButton.getSize().x) / 2 + SHIFT_BUTTON * 2, windowSize.y / 2 + SHIFT_BUTTON,"images\\exitButton.png");
-
+    PlayerLinkedList::player_t* player = currentPlayer;
     // Main cycle
     while (window.isOpen()) {
         sf::Event event;
@@ -68,6 +68,7 @@ int main() {
             if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (isMouseOverButton(startButton, mousePos)) {
+                    currentPlayer = players.getInfo(currentPlayerName);
                     game();
                     players.saveToFile();
                 }

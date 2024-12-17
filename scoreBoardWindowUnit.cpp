@@ -3,7 +3,6 @@
 //
 
 #include "scoreBoardWindowUnit.h"
-
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System.hpp>
 
@@ -51,7 +50,9 @@ void scoreBoard(PlayerLinkedList &players) {
         sf::Event event;
         while (scoreBoardWindow.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
+                scoreList.clear();
                 scoreBoardWindow.close();
+
             }
             if (event.type == sf::Event::Resized) {
                 sf::Vector2u windowSize;
