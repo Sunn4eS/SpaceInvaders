@@ -36,40 +36,20 @@ int main() {
 
     //Player Button
     sf::RectangleShape playerButton(sf::Vector2f(BUTTON_WIDTH, BUTTON_HEIGHT));
-    sf::Texture playerButtonTexture;
-    if (!playerButtonTexture.loadFromFile("images\\playerButton.png")) {
-        std::cerr << "Failed to load playButton texture" << std::endl;
-    }
-    playerButton.setPosition((windowSize.x - playerButton.getSize().x) / 2, windowSize.y / 2);
-    playerButton.setTexture(&playerButtonTexture);
+    createButton(playerButton, (windowSize.x - playerButton.getSize().x) / 2, windowSize.y / 2, "images\\playerButton.png");
+
 
     //Start button
     sf::RectangleShape startButton(sf::Vector2f(BUTTON_WIDTH, BUTTON_HEIGHT));
-    sf::Texture startButtonTexture;
-    if (!startButtonTexture.loadFromFile("images\\playButton.png")) {
-        std::cerr << "Failed to load playButton texture" << std::endl;
-    }
-    startButton.setPosition((windowSize.x - startButton.getSize().x) / 2, windowSize.y / 2 - SHIFT_BUTTON);
-    startButton.setTexture(&startButtonTexture, true);
+    createButton(startButton,(windowSize.x - startButton.getSize().x) / 2, windowSize.y / 2 - SHIFT_BUTTON, "images\\playButton.png");
 
     //Score Button
     sf::RectangleShape scoreButton(sf::Vector2f(BUTTON_WIDTH, BUTTON_HEIGHT));
-    sf::Texture scoreButtonTexture;
-    if (!scoreButtonTexture.loadFromFile("images\\scoreButton.png")) {
-        std::cerr << "Failed to load scoreButton texture" << std::endl;
-    }
-    scoreButton.setPosition((windowSize.x - scoreButton.getSize().x) / 2, windowSize.y / 2 + SHIFT_BUTTON);
-    scoreButton.setTexture(&scoreButtonTexture, true);
+    createButton(scoreButton, (windowSize.x - scoreButton.getSize().x) / 2, windowSize.y / 2 + SHIFT_BUTTON, "images\\scoreButton.png");
 
     //Exit Button
     sf::RectangleShape exitButton(sf::Vector2f(150, 150));
-    sf::Texture exitButtonTexture;
-    if (!exitButtonTexture.loadFromFile("images\\exitButton.png")) {
-        std::cerr << "Failed to load exitButton texture" << std::endl;
-    }
-    exitButton.setPosition((windowSize.x - exitButton.getSize().x) / 2 + SHIFT_BUTTON * 2, windowSize.y / 2 + SHIFT_BUTTON);
-    exitButton.setTexture(&exitButtonTexture, true);
-
+    createButton(exitButton, (windowSize.x - exitButton.getSize().x) / 2 + SHIFT_BUTTON * 2, windowSize.y / 2 + SHIFT_BUTTON,"images\\exitButton.png");
 
     // Main cycle
     while (window.isOpen()) {
