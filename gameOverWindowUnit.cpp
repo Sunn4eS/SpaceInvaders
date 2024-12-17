@@ -35,7 +35,7 @@ void gameOver() {
                 gameOverWindow.setSize(windowSize);
             }
             if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Enter) {
+                if (event.key.code == sf::Keyboard::Enter || event.key.code == sf::Keyboard::Escape) {
                     gameOverWindow.close();
                 }
             }
