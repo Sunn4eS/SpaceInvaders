@@ -66,3 +66,17 @@
 17	764	7561370690865854	CMakeFiles/FirstTry.dir/pauseWindowUnit.cpp.obj	a1750162973bc7e6
 5	1096	7561370815751444	CMakeFiles/FirstTry.dir/gameWindowUnit.cpp.obj	6b7bdb50fdefa2db
 1096	2143	7561370826656246	FirstTry.exe	70a885a03d428403
+5	1079	7561757383966109	CMakeFiles/FirstTry.dir/gameWindowUnit.cpp.obj	6b7bdb50fdefa2db
+1080	1782	7561757394708237	FirstTry.exe	70a885a03d428403
+6	1122	7561757537017472	CMakeFiles/FirstTry.dir/gameWindowUnit.cpp.obj	6b7bdb50fdefa2db
+1122	1792	7561757548188199	FirstTry.exe	70a885a03d428403
+8	1202	7561757877200534	CMakeFiles/FirstTry.dir/gameWindowUnit.cpp.obj	6b7bdb50fdefa2db
+1202	1880	7561757889142556	FirstTry.exe	70a885a03d428403
+6	1065	7561759395960164	CMakeFiles/FirstTry.dir/scoreBoardWindowUnit.cpp.obj	5ad7b4992c6e3913
+1065	1820	7561759406557934	FirstTry.exe	70a885a03d428403
+5	928	7561762517846137	CMakeFiles/FirstTry.dir/scoreBoardWindowUnit.cpp.obj	5ad7b4992c6e3913
+929	1604	7561762527080726	FirstTry.exe	70a885a03d428403
+5	693	7561768156905658	CMakeFiles/FirstTry.dir/main.cpp.obj	836522df9890fb83
+9	846	7561768156955660	CMakeFiles/FirstTry.dir/chosePlayerWindow.cpp.obj	18f88720ea8c52d5
+12	1043	7561768156985586	CMakeFiles/FirstTry.dir/gameWindowUnit.cpp.obj	6b7bdb50fdefa2db
+1043	1737	7561768167284396	FirstTry.exe	70a885a03d428403
