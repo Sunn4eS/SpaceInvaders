@@ -36,6 +36,10 @@ void scoreInitialization(int &score, sf::Text &scoreText, sf::Font &scoreFont) {
     scoreText.setPosition(1500, 0);
 }
 
+void createButton(sf::RectangleShape &button, const float posX, const float posY, const std::string &texturePath) {
+    button.setPosition(posX, posY);
+    button.setTexture(&TextureManager::getTexture(texturePath), true);
+}
 
 
 
@@ -64,14 +68,10 @@ void game() {
     sf::Font font;
     scoreInitialization(score, scoreText, font);
 
+
     //Pause Button
     sf::RectangleShape pauseButton(sf::Vector2f(PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_WIDTH));
-    sf::Texture pauseButtonTexture;
-    if (!pauseButtonTexture.loadFromFile("images\\PauseButton.png")) {
-        std::cerr << "Failed to load scoreButton texture" << std::endl;
-    }
-    pauseButton.setPosition(0, 0);
-    pauseButton.setTexture(&pauseButtonTexture, true);
+    createButton(pauseButton, 0, 0, "images\\PauseButton.png");
 
     //Rocket & Cannon initialization
     CannonClass cannon(windowSize.x / 2, 900);
@@ -106,11 +106,13 @@ void game() {
                 }
                 if (event.key.code == sf::Keyboard::Escape) {
                     pause();
+                    clock.restart();
                 }
                 if (event.type == sf::Event::MouseButtonPressed) {
                     sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
                     if (isMouseOverButtonC(pauseButton, mousePos)) {
                         pause();
+                        clock.restart();
                     }
                 }
 
