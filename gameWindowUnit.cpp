@@ -162,7 +162,9 @@ void game() {
                 if (lives == 0) {
                     gameWindow.close();
                     gameOver();
-                    currentPlayer->data.score = score;
+                    if (currentPlayer->data.score < score) {
+                        currentPlayer->data.score = score;
+                    }
                     std::cout << "score "<< currentPlayer->data.score << "\n" << currentPlayer->data.name << "\n";
 
                 }
