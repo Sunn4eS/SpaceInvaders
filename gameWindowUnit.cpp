@@ -105,13 +105,13 @@ void game() {
                     }
                 }
                 if (event.key.code == sf::Keyboard::Escape) {
-                    pause();
+                    pause(gameWindow);
                     clock.restart();
                 }
                 if (event.type == sf::Event::MouseButtonPressed) {
                     sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
                     if (isMouseOverButtonC(pauseButton, mousePos)) {
-                        pause();
+                        pause(gameWindow);
                         clock.restart();
                     }
                 }
