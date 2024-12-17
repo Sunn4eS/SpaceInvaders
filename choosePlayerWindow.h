@@ -7,6 +7,7 @@
 #include "fileModule.h"
 
 void choosePlayer();
+bool isMouseOverButtonC(const sf::RectangleShape& button, const sf::Vector2i& mousePos);
 
 extern PlayerLinkedList::player_t* currentPlayer;
 
