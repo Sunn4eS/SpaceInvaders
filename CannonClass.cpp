@@ -1,7 +1,3 @@
-//
-// Created by User on 11.12.2024.
-//
-
 #include "CannonClass.h"
 
 CannonClass::CannonClass(float x, float y) : speed(8.0f) {

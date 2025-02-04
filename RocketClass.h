@@ -1,7 +1,3 @@
-//
-// Created by User on 11.12.2024.
-//
-
 #ifndef ROCKETCLASS_H
 #define ROCKETCLASS_H
 
@@ -19,7 +15,5 @@ private:
   sf::Texture rocketTexture;
   sf::Sprite rocketSprite;
 };
-
-
 
 #endif //ROCKETCLASS_H

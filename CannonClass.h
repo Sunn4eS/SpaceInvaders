@@ -1,7 +1,3 @@
-//
-// Created by User on 11.12.2024.
-//
-
 #ifndef CANNONCLASS_H
 #define CANNONCLASS_H
 #include <SFML/Graphics/RenderWindow.hpp>

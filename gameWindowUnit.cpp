@@ -44,7 +44,7 @@ void createButton(sf::RectangleShape &button, const float posX, const float posY
 
 
 void game() {
-    sf::RenderWindow gameWindow(sf::VideoMode(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT), "Construction of the game");
+    sf::RenderWindow gameWindow(sf::VideoMode(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT), "Construction of the game", sf::Style::Fullscreen);
     sf::Vector2u windowSize = gameWindow.getSize();
     gameWindow.setFramerateLimit(120);
     sf::Texture backgroundTexture;

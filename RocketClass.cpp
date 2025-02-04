@@ -1,7 +1,3 @@
-//
-// Created by User on 11.12.2024.
-//
-
 #include "RocketClass.h"
 #include "TextureManagerClass.h"
 RocketClass::RocketClass(float startX, float startY, bool cannon) : speed(5.0f) {

@@ -18,8 +18,9 @@ bool isMouseOverButton(const sf::RectangleShape& button, const sf::Vector2i& mou
 
 int main() {
 
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Main Menu Example");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Main Menu Example", sf::Style::Fullscreen);
     sf::Vector2u windowSize = window.getSize();
+
 
     //Создание фонового изображения
     sf::Texture backgroundTexture;
@@ -70,6 +71,7 @@ int main() {
                 if (isMouseOverButton(startButton, mousePos)) {
                     currentPlayer = players.getInfo(currentPlayerName);
                     game();
+
                     players.saveToFile();
                 }
                 if (isMouseOverButton(exitButton, mousePos)) {
