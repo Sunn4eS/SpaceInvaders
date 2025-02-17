@@ -30,4 +30,4 @@ add_executable(FirstTry main.cpp
         scoreBoardWindowUnit.cpp
         pauseWindowUnit.h
         pauseWindowUnit.cpp)
-target_link_libraries(FirstTry sfml-graphics sfml-window sfml-system)
+target_link_libraries(FirstTry sfml-system sfml-window sfml-graphics)

@@ -8,6 +8,8 @@
 #include "TextureManagerClass.h"
 #include "gameOverWindowUnit.h"
 #include "pauseWindowUnit.h"
+#include <SFML/Audio.hpp>
+
 
 #define GAME_WINDOW_WIDTH 1920
 #define GAME_WINDOW_HEIGHT 1080
@@ -68,6 +70,9 @@ void game() {
     sf::Font font;
     scoreInitialization(score, scoreText, font);
 
+    //sf::SoundBuffer buffShoot;
+    //sf::Sound soundShoot;
+
 
     //Pause Button
     sf::RectangleShape pauseButton(sf::Vector2f(PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_WIDTH));
@@ -101,7 +106,8 @@ void game() {
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Space) {
                      if (rockets.empty()) {
-                        rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top, true);
+                         //sound
+                         rockets.emplace_back(cannon.getBounds().left + cannon.getBounds().width / 2, cannon.getBounds().top, true);
                     }
                 }
                 if (event.key.code == sf::Keyboard::Escape) {
